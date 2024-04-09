@@ -26,9 +26,16 @@ For your solution to be accepted it is required that your application is able to
 6. The user should be able to delete their own reviews in online mode only
 
 ## Plus
+
 Consider adding the features below if you feel confortable and have the time
+
 - Unit tests
 
 Anything else is up to you (animations, assets, 3rd party dependencies, etc). We will consider all your additions so don't stick to the minimum!
 
 Good luck!
+
+## App Information
+
+- Flutter version
+  3.19.5
