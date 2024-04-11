@@ -39,3 +39,6 @@ Good luck!
 
 - Flutter version
   3.19.5
+
+- Edit models
+  After editing the models, run 'flutter pub run build_runner watch --delete-conflicting-outputs' to generate updated code.

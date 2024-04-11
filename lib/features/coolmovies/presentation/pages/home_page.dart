@@ -1,3 +1,4 @@
+import 'package:coolmovies/features/coolmovies/data/models/movie_model.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
