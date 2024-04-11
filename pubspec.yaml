@@ -35,9 +35,11 @@ dependencies:
   cupertino_icons: ^1.0.2
   # Json
   json_annotation: ^4.8.1
-  # state management
+  # State management
   flutter_bloc: ^8.1.5
   bloc: ^8.1.4
+  # Service locator
+  get_it: ^7.6.7
 
 dev_dependencies:
   flutter_test:

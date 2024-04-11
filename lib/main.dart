@@ -1,25 +1,16 @@
 import 'dart:io';
 
 import 'package:coolmovies/features/coolmovies/presentation/pages/home_page.dart';
+import 'package:coolmovies/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 void main() async {
-  final HttpLink httpLink = HttpLink(
-    Platform.isAndroid
-        ? 'http://10.0.2.2:5001/graphql'
-        : 'http://localhost:5001/graphql',
-  );
-
-  ValueNotifier<GraphQLClient> client = ValueNotifier(
-    GraphQLClient(
-      link: httpLink,
-      cache: GraphQLCache(store: InMemoryStore()),
-    ),
-  );
+  WidgetsFlutterBinding.ensureInitialized();
+  await initializeDependencies();
 
   runApp(GraphQLProvider(
-    client: client,
+    client: sl(),
     child: const MyApp(),
   ));
 }

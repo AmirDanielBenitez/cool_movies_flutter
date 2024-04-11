@@ -1,4 +1,4 @@
-import 'package:coolmovies/features/coolmovies/data/models/movie_model.dart';
+import 'package:coolmovies/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
@@ -37,10 +37,10 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _fetchData() async {
     print('Fetching data...');
-    var client = GraphQLProvider.of(context).value;
 
-    final QueryResult result = await client.query(QueryOptions(
-      document: gql(r"""
+    final QueryResult result =
+        await sl<ValueNotifier<GraphQLClient>>().value.query(QueryOptions(
+              document: gql(r"""
           query AllMovies {
             allMovies {
               nodes {
@@ -60,7 +60,7 @@ class _MyHomePageState extends State<MyHomePage> {
             }
           }
         """),
-    ));
+            ));
 
     if (result.hasException) {
       print(result.exception.toString());
