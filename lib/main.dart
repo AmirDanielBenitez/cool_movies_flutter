@@ -1,5 +1,6 @@
+import 'package:coolmovies/config/routes/routes.dart';
 import 'package:coolmovies/features/coolmovies/presentation/bloc/movies_bloc.dart';
-import 'package:coolmovies/features/coolmovies/presentation/pages/home_page.dart';
+import 'package:coolmovies/features/coolmovies/presentation/pages/movies_home_page.dart';
 import 'package:coolmovies/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -32,7 +33,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const MyHomePage(),
+        home: const MoviesHomePage(),
+        onGenerateRoute: AppRoutes.onGenerateRoutes,
       ),
     );
   }
