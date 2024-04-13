@@ -40,6 +40,10 @@ dependencies:
   bloc: ^8.1.4
   # Service locator
   get_it: ^7.6.7
+  # Listview
+  searchable_listview: ^2.10.2
+  # shimer
+  shimmer: ^3.0.0
 
 dev_dependencies:
   flutter_test:
