@@ -1,5 +1,5 @@
 import 'package:coolmovies/features/coolmovies/data/models/movie_model.dart';
-import 'package:coolmovies/features/coolmovies/presentation/bloc/movies_bloc.dart';
+import 'package:coolmovies/features/coolmovies/presentation/bloc/movies_bloc/movies_bloc.dart';
 import 'package:coolmovies/features/coolmovies/presentation/widgets/movie_card_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,8 +22,7 @@ class MoviesHomePage extends StatelessWidget {
               child: SearchableList<Movie>(
                 displaySortWidget: true,
                 sortPredicate: (a, b) =>
-                    (a.releaseDate ?? '').compareTo(b.releaseDate ?? ''),
-                // sortPredicate: (a, b) => a.title.compareTo(b.title),
+                    (a.releaseDate).compareTo(b.releaseDate),
                 builder: (list, index, movie) {
                   return Padding(
                     padding: const EdgeInsets.symmetric(vertical: 5.0),
@@ -64,7 +63,9 @@ class MovieTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.pushNamed(context, '/movie-detail', arguments: movie);
+      },
       child: SizedBox(
         height: 150.0,
         child: Row(
@@ -72,24 +73,21 @@ class MovieTile extends StatelessWidget {
             Flexible(
               flex: 1,
               fit: FlexFit.tight,
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(8.0),
-                child: Hero(
-                  tag: 'hero-image:${movie.id}',
-                  child: movie.imgUrl != null
-                      ? Image.network(
-                          movie.imgUrl!,
-                          fit: BoxFit.cover,
-                          loadingBuilder: ((context, child, loadingProgress) {
-                            if (loadingProgress == null) return child;
-                            return const ShimmerBox(
-                              width: 80.0,
-                              height: 80.0,
-                            );
-                          }),
-                        )
-                      : const Placeholder(),
-                ),
+              child: Hero(
+                tag: 'hero-image:${movie.id}',
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: Image.network(
+                      movie.imgUrl,
+                      fit: BoxFit.cover,
+                      loadingBuilder: ((context, child, loadingProgress) {
+                        if (loadingProgress == null) return child;
+                        return const ShimmerBox(
+                          width: 80.0,
+                          height: 80.0,
+                        );
+                      }),
+                    )),
               ),
             ),
             const SizedBox(width: 10.0),
@@ -108,7 +106,7 @@ class MovieTile extends StatelessWidget {
                     'Release Date',
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
-                  Text(movie.releaseDate ?? ''),
+                  Text(movie.releaseDate),
                 ],
               ),
             )
