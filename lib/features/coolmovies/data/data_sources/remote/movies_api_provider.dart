@@ -1,4 +1,4 @@
-import 'package:coolmovies/features/coolmovies/data/models/movie_model.dart';
+import 'package:coolmovies/features/coolmovies/data/models/movie/movie_model.dart';
 import 'package:coolmovies/injection_container.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -13,16 +13,11 @@ class MoviesApiProvider {
               nodes {
                 id
                 imgUrl
-                movieDirectorId
-                userCreatorId
+								 movieDirectorByMovieDirectorId {
+                  name
+								}
                 title
                 releaseDate
-                nodeId
-                userByUserCreatorId {
-                  id
-                  name
-                  nodeId
-                }
               }
             }
           }

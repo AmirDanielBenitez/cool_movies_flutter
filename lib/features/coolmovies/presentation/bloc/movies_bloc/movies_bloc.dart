@@ -3,7 +3,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:coolmovies/features/coolmovies/data/models/movie_model.dart';
+import 'package:coolmovies/features/coolmovies/data/models/movie/movie_model.dart';
 import 'package:coolmovies/features/coolmovies/data/repository/repository.dart';
 import 'package:coolmovies/injection_container.dart';
 import 'package:meta/meta.dart';
