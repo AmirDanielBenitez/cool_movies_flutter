@@ -12,18 +12,31 @@ class ReviewsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: BlocBuilder<UserBloc, UserState>(
-        builder: (context, userState) {
-          if (userState is UserNotAuthenticated) {
-            return const Center(
-              child: Text(
-                'You must login first',
-                style: bigTitleTextStyle,
+    return BlocBuilder<UserBloc, UserState>(
+      builder: (context, userState) {
+        if (userState is UserNotAuthenticated) {
+          return const Expanded(
+            child: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    Icons.account_circle_rounded,
+                    size: 100.0,
+                    color: Colors.white,
+                  ),
+                  Text(
+                    'You must log in first to see this page.',
+                    textAlign: TextAlign.center,
+                    style: bigTitleTextStyle,
+                  ),
+                ],
               ),
-            );
-          } else if (userState is UserAuthenticated) {
-            return BlocBuilder<ReviewsBloc, ReviewsState>(
+            ),
+          );
+        } else if (userState is UserAuthenticated) {
+          return SingleChildScrollView(
+            child: BlocBuilder<ReviewsBloc, ReviewsState>(
               bloc: BlocProvider.of<ReviewsBloc>(context)
                 ..add(LoadReviewsByUserEvent(userId: userState.user.id)),
               builder: (context, state) {
@@ -94,11 +107,11 @@ class ReviewsPage extends StatelessWidget {
                 }
                 return Container();
               },
-            );
-          }
-          return Container();
-        },
-      ),
+            ),
+          );
+        }
+        return Container();
+      },
     );
   }
 }
