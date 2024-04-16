@@ -1,7 +1,7 @@
 import 'package:coolmovies/features/coolmovies/data/models/movie/movie_model.dart';
 import 'package:coolmovies/features/coolmovies/presentation/pages/home/home_page.dart';
 import 'package:coolmovies/features/coolmovies/presentation/pages/movie_detail/movie_detail.dart';
-import 'package:coolmovies/features/coolmovies/presentation/widgets/movie_image.dart';
+import 'package:coolmovies/features/coolmovies/presentation/pages/movie_image/movie_image.dart';
 import 'package:flutter/material.dart';
 
 class AppRoutes {

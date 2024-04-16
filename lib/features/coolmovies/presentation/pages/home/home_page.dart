@@ -1,6 +1,7 @@
 import 'package:circular_bottom_navigation/circular_bottom_navigation.dart';
 import 'package:circular_bottom_navigation/tab_item.dart';
 import 'package:coolmovies/config/theme/app_themes.dart';
+import 'package:coolmovies/features/coolmovies/presentation/pages/user_page/user_page.dart';
 import 'package:coolmovies/features/coolmovies/presentation/widgets/movie_list.dart';
 import 'package:flutter/material.dart';
 
@@ -89,7 +90,7 @@ class _HomePageState extends State<HomePage> {
       case 1:
         return Container();
       case 2:
-        return Container();
+        return const UserPage();
       default:
         return const MovieList();
     }

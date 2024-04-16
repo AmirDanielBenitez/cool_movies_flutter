@@ -1,6 +1,7 @@
 import 'package:coolmovies/config/routes/routes.dart';
 import 'package:coolmovies/features/coolmovies/presentation/bloc/movies_bloc/movies_bloc.dart';
 import 'package:coolmovies/features/coolmovies/presentation/bloc/reviews_bloc/reviews_bloc.dart';
+import 'package:coolmovies/features/coolmovies/presentation/bloc/user_bloc/user_bloc.dart';
 import 'package:coolmovies/features/coolmovies/presentation/pages/home/home_page.dart';
 import 'package:coolmovies/injection_container.dart';
 import 'package:flutter/material.dart';
@@ -30,6 +31,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => ReviewsBloc(),
+        ),
+        BlocProvider(
+          create: (context) => UserBloc()..add(LogInCurrentUserEvent()),
         ),
       ],
       child: MaterialApp(

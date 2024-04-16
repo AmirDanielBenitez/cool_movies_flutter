@@ -17,8 +17,7 @@ class ReviewsBloc extends Bloc<ReviewsEvent, ReviewsState> {
       LoadReviewsEvent event, Emitter<ReviewsState> emit) async {
     try {
       final List<Review> reviews = await sl<Repository>()
-          .reviewsApiProvider
-          .fetchAllMovieReviewsByMovie(event.movieId);
+          .fetchAllMovieReviewsByMovie(movieId: event.movieId);
       emit(
         ReviewsLoaded(reviews: reviews),
       );
