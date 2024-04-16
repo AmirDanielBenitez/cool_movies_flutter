@@ -5,7 +5,6 @@ import 'package:coolmovies/features/coolmovies/data/repository/repository.dart';
 import 'package:coolmovies/injection_container.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_login/flutter_login.dart';
-import 'package:meta/meta.dart';
 
 part 'user_event.dart';
 part 'user_state.dart';

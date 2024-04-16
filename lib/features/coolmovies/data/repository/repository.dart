@@ -4,7 +4,6 @@ import 'package:coolmovies/features/coolmovies/data/data_sources/remote/user_api
 import 'package:coolmovies/features/coolmovies/data/models/movie/movie_model.dart';
 import 'package:coolmovies/features/coolmovies/data/models/review/review_model.dart';
 import 'package:coolmovies/features/coolmovies/data/models/user/user_model.dart';
-import 'package:flutter_login/flutter_login.dart';
 
 class Repository {
   final MoviesApiProvider moviesApiProvider;
@@ -18,6 +17,10 @@ class Repository {
   // Reviews
   Future<List<Review>> fetchAllMovieReviewsByMovie({movieId}) =>
       reviewsApiProvider.fetchAllMovieReviewsByMovie(movieId);
+  Future<List<Review>> fetchAllReviewsByUser({userId}) =>
+      reviewsApiProvider.fetchAllReviewsByUser(userId);
+  Future<void> sendMovieReview({review, movieId, userId}) =>
+      reviewsApiProvider.sendMovieReview(review, movieId, userId);
   // Users
   Future<User> fetchCurrentUser() => userApiProvider.fetchCurrentUser();
   Future<User> signUpUser({signupData}) =>

@@ -57,6 +57,7 @@ class MovieList extends StatelessWidget {
                     ),
                   ),
                 ),
+              const SizedBox(height: 55.0),
               if (state is MoviesNotLoaded)
                 Expanded(
                     child: Center(

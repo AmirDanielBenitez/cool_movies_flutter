@@ -80,13 +80,12 @@ class UserPage extends StatelessWidget {
             onLogin: (LoginData loginData) {
               BlocProvider.of<UserBloc>(context)
                   .add(LogInUserEvent(loginData: loginData));
-              // Future(() => null);
               return null;
             },
             onSignup: (SignupData signupData) {
               BlocProvider.of<UserBloc>(context)
                   .add(SignUpUserEvent(signupData: signupData));
-              Future(() => null);
+              return null;
             },
             onSubmitAnimationCompleted: () {
               Navigator.of(context).pushReplacementNamed('/');

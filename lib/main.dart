@@ -33,6 +33,7 @@ class MyApp extends StatelessWidget {
           create: (context) => ReviewsBloc(),
         ),
         BlocProvider(
+          lazy: false,
           create: (context) => UserBloc()..add(LogInCurrentUserEvent()),
         ),
       ],

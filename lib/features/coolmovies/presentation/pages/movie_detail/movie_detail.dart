@@ -3,8 +3,11 @@ import 'package:coolmovies/core/components/column_builder.dart';
 import 'package:coolmovies/features/coolmovies/data/models/movie/movie_model.dart';
 import 'package:coolmovies/features/coolmovies/data/models/review/review_model.dart';
 import 'package:coolmovies/features/coolmovies/presentation/bloc/reviews_bloc/reviews_bloc.dart';
+import 'package:coolmovies/features/coolmovies/presentation/bloc/user_bloc/user_bloc.dart';
 import 'package:coolmovies/features/coolmovies/presentation/widgets/star_rating.dart';
+import 'package:coolmovies/features/coolmovies/presentation/widgets/star_rating_review.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MovieDetail extends StatelessWidget {
@@ -17,7 +20,7 @@ class MovieDetail extends StatelessWidget {
       backgroundColor: backgroundColor,
       body: BlocBuilder<ReviewsBloc, ReviewsState>(
         bloc: BlocProvider.of<ReviewsBloc>(context)
-          ..add(LoadReviewsEvent(movieId: movie.id)),
+          ..add(LoadReviewsByMovieEvent(movieId: movie.id)),
         builder: (context, state) {
           return SingleChildScrollView(
             child: SizedBox(
@@ -74,72 +77,79 @@ class MovieDetail extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Transform.translate(
-                    offset: const Offset(0, -50),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 30.0),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(18.0),
-                        child: Card(
-                          child: Container(
-                            padding: const EdgeInsets.all(10.0),
-                            color: backgroundCard,
-                            width: double.infinity,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(movie.title,
-                                    textAlign: TextAlign.center,
-                                    style: bigTitleTextStyle),
-                                const SizedBox(height: 5.0),
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text.rich(
-                                    TextSpan(
-                                      children: [
-                                        const TextSpan(
-                                          text: 'Release Date: ',
-                                          style: titleTextStyle,
-                                        ),
-                                        TextSpan(
-                                          text: movie.releaseDate,
-                                          style: const TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 18.0,
+                  state is ReviewsInitial
+                      ? const Padding(
+                          padding: EdgeInsets.only(top: 20.0),
+                          child: Center(child: CircularProgressIndicator()),
+                        )
+                      : Transform.translate(
+                          offset: const Offset(0, -50),
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 30.0),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(18.0),
+                              child: Card(
+                                child: Container(
+                                  padding: const EdgeInsets.all(10.0),
+                                  color: backgroundCard,
+                                  width: double.infinity,
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(movie.title,
+                                          textAlign: TextAlign.center,
+                                          style: bigTitleTextStyle),
+                                      const SizedBox(height: 5.0),
+                                      Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text.rich(
+                                          TextSpan(
+                                            children: [
+                                              const TextSpan(
+                                                text: 'Release Date: ',
+                                                style: titleTextStyle,
+                                              ),
+                                              TextSpan(
+                                                text: movie.releaseDate,
+                                                style: const TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: 18.0,
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                      ],
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(height: 5.0),
-                                Align(
-                                  alignment: Alignment.centerLeft,
-                                  child: Text.rich(
-                                    TextSpan(
-                                      children: [
-                                        const TextSpan(
-                                          text: 'Director: ',
-                                          style: titleTextStyle,
-                                        ),
-                                        TextSpan(
-                                          text: movie.director,
-                                          style: const TextStyle(
-                                            color: Colors.grey,
-                                            fontSize: 18.0,
+                                      ),
+                                      const SizedBox(height: 5.0),
+                                      Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text.rich(
+                                          TextSpan(
+                                            children: [
+                                              const TextSpan(
+                                                text: 'Director: ',
+                                                style: titleTextStyle,
+                                              ),
+                                              TextSpan(
+                                                text: movie.director,
+                                                style: const TextStyle(
+                                                  color: Colors.grey,
+                                                  fontSize: 18.0,
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                    ],
                                   ),
                                 ),
-                              ],
+                              ),
                             ),
                           ),
-                        ),
-                      ),
-                    ),
-                  ),
+                        ).animate().fadeIn(duration: 300.ms).scale(),
                   if (state is ReviewsLoaded) ...[
                     Transform.translate(
                       offset: const Offset(0, -20),
@@ -149,12 +159,25 @@ class MovieDetail extends StatelessWidget {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                'Reviews',
-                                style: bigTitleTextStyle,
-                              ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  'Reviews',
+                                  style: bigTitleTextStyle,
+                                ),
+                                ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: starColor),
+                                  onPressed: () {
+                                    showReviewDialog(context, movie.id);
+                                  },
+                                  child: const Text(
+                                    'Add review',
+                                    style: titleTextStyle,
+                                  ),
+                                ),
+                              ],
                             ),
                             const SizedBox(height: 10.0),
                             ClipRRect(
@@ -221,6 +244,105 @@ class MovieDetail extends StatelessWidget {
           );
         },
       ),
+    );
+  }
+
+  Future<void> showReviewDialog(BuildContext context, String movieId) async {
+    String title = '';
+    String body = '';
+    double rating = 0.0;
+
+    return showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        UserState userState = BlocProvider.of<UserBloc>(context).state;
+        if (userState is UserNotAuthenticated) {
+          WidgetsBinding.instance.addPostFrameCallback((_) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('You have to be logged to leave a review'),
+                duration: Duration(seconds: 2),
+              ),
+            );
+            Navigator.pop(context);
+          });
+        }
+
+        return StatefulBuilder(
+          builder: (BuildContext context, StateSetter setState) {
+            return AlertDialog(
+              title: const Text('Add Review'),
+              content: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TextField(
+                      decoration: const InputDecoration(labelText: 'Title'),
+                      onChanged: (value) {
+                        setState(() {
+                          title = value;
+                        });
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    StarRatingReview(
+                      rating: rating,
+                      onTap: (newRating) {
+                        setState(() {
+                          rating = newRating;
+                        });
+                      },
+                    ),
+                    const SizedBox(height: 16),
+                    TextField(
+                      decoration: const InputDecoration(labelText: 'Body'),
+                      keyboardType: TextInputType.multiline,
+                      onChanged: (value) {
+                        setState(() {
+                          body = value;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: const Text('Cancel'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    if (title.isNotEmpty && body.isNotEmpty) {
+                      BlocProvider.of<ReviewsBloc>(context).add(SendReviewEvent(
+                          review: Review(
+                              id: '',
+                              title: title,
+                              rating: rating.toInt(),
+                              body: body,
+                              movieTitle: '',
+                              user: ''),
+                          movieId: movieId,
+                          userId: (userState as UserAuthenticated).user.id));
+                      Navigator.of(context).pop();
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content: Text('Please fill all fields'),
+                          duration: Duration(seconds: 2),
+                        ),
+                      );
+                    }
+                  },
+                  child: const Text('Save'),
+                ),
+              ],
+            );
+          },
+        );
+      },
     );
   }
 }

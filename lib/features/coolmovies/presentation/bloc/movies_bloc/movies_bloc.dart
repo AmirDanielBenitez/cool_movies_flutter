@@ -22,7 +22,7 @@ class MoviesBloc extends Bloc<MoviesEvent, MoviesState> {
       final List<Movie> movies =
           await sl<Repository>().moviesApiProvider.fetchAllMovies();
       emit(
-        MoviesLoaded(movies: movies),
+        MoviesLoaded(movies: [...movies, ...movies]),
       );
     } catch (e) {
       emit(MoviesNotLoaded(error: e.toString()));
