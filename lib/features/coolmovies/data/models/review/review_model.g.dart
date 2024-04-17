@@ -12,7 +12,7 @@ Review _$ReviewFromJson(Map<String, dynamic> json) => Review(
       body: json['body'] as String,
       user: Review._userFromJson(
           json['userByUserReviewerId'] as Map<String, dynamic>),
-      movieTitle: Review._movieTitleFromJson(
+      movieData: Review._movieDataFromJson(
           json['movieByMovieId'] as Map<String, dynamic>),
       rating: json['rating'] as int,
     );
@@ -22,6 +22,6 @@ Map<String, dynamic> _$ReviewToJson(Review instance) => <String, dynamic>{
       'title': instance.title,
       'body': instance.body,
       'userByUserReviewerId': instance.user,
-      'movieByMovieId': instance.movieTitle,
+      'movieByMovieId': Review._movieDataToJson(instance.movieData),
       'rating': instance.rating,
     };

@@ -170,7 +170,7 @@ class MovieDetail extends StatelessWidget {
                                   style: ElevatedButton.styleFrom(
                                       backgroundColor: starColor),
                                   onPressed: () {
-                                    showReviewDialog(context, movie.id);
+                                    showReviewDialog(context);
                                   },
                                   child: const Text(
                                     'Add review',
@@ -247,7 +247,7 @@ class MovieDetail extends StatelessWidget {
     );
   }
 
-  Future<void> showReviewDialog(BuildContext context, String movieId) async {
+  Future<void> showReviewDialog(BuildContext context) async {
     String title = '';
     String body = '';
     double rating = 0.0;
@@ -317,15 +317,14 @@ class MovieDetail extends StatelessWidget {
                   onPressed: () {
                     if (title.isNotEmpty && body.isNotEmpty) {
                       BlocProvider.of<ReviewsBloc>(context).add(SendReviewEvent(
-                          review: Review(
-                              id: '',
-                              title: title,
-                              rating: rating.toInt(),
-                              body: body,
-                              movieTitle: '',
-                              user: ''),
-                          movieId: movieId,
-                          userId: (userState as UserAuthenticated).user.id));
+                        review: Review(
+                            id: '',
+                            title: title,
+                            rating: rating.toInt(),
+                            body: body,
+                            movieData: MovieDataReview(movie.id, movie.title),
+                            user: (userState as UserAuthenticated).user.name),
+                      ));
                       Navigator.of(context).pop();
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(

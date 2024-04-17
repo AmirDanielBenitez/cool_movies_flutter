@@ -22,6 +22,7 @@ class ReviewsApiProvider {
               name
             }
             movieByMovieId {
+              id
               title
             }
           }
@@ -59,8 +60,10 @@ class ReviewsApiProvider {
             rating
             userByUserReviewerId {
               name
+              id
             }
             movieByMovieId {
+              id
               title
             }
           }
@@ -82,8 +85,7 @@ class ReviewsApiProvider {
     return [];
   }
 
-  Future<void> sendMovieReview(
-      Review review, String movieId, String userId) async {
+  Future<void> sendMovieReview(Review review) async {
     final QueryResult result =
         await sl<ValueNotifier<GraphQLClient>>().value.query(
               QueryOptions(
@@ -94,8 +96,8 @@ class ReviewsApiProvider {
             title: "${review.title}",
             body: "${review.body}",
             rating: ${review.rating},
-            movieId: "$movieId",
-            userReviewerId: "$userId"
+            movieId: "${review.movieData.id}",
+            userReviewerId: "${review.user}"
           }})
         {
           movieReview {

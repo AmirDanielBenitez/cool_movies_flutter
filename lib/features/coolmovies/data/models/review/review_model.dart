@@ -10,8 +10,12 @@ class Review {
   final String body;
   @JsonKey(name: 'userByUserReviewerId', fromJson: _userFromJson)
   final String user;
-  @JsonKey(name: 'movieByMovieId', fromJson: _movieTitleFromJson)
-  final String movieTitle;
+  @JsonKey(
+    name: 'movieByMovieId',
+    fromJson: _movieDataFromJson,
+    toJson: _movieDataToJson,
+  )
+  final MovieDataReview movieData;
   final int rating;
 
   const Review({
@@ -19,7 +23,7 @@ class Review {
     required this.title,
     required this.body,
     required this.user,
-    required this.movieTitle,
+    required this.movieData,
     required this.rating,
   });
 
@@ -28,6 +32,24 @@ class Review {
 
   static String _userFromJson(Map<String, dynamic> json) =>
       json['name'] as String;
-  static String _movieTitleFromJson(Map<String, dynamic> json) =>
-      json['title'] as String;
+  static MovieDataReview _movieDataFromJson(Map<String, dynamic> json) {
+    return MovieDataReview(json['id'] ?? '', json['title'] ?? '');
+  }
+
+  static Map<String, dynamic> _movieDataToJson(MovieDataReview movieData) {
+    return movieData.toJson();
+  }
+}
+
+class MovieDataReview {
+  final String id;
+  final String title;
+  MovieDataReview(this.id, this.title);
+
+  Map<String, dynamic> toJson() {
+    return {
+      "id": id,
+      "title": title,
+    };
+  }
 }

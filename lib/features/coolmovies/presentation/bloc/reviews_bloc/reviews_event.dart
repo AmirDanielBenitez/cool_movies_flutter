@@ -15,11 +15,9 @@ class LoadReviewsByUserEvent extends ReviewsEvent {
 
 class SendReviewEvent extends ReviewsEvent {
   final Review review;
-  final String movieId;
-  final String userId;
   SendReviewEvent({
     required this.review,
-    required this.movieId,
-    required this.userId,
   });
 }
+
+class CheckOfflineReviewsEvent extends ReviewsEvent {}

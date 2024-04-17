@@ -81,7 +81,7 @@ class ReviewsPage extends StatelessWidget {
                                                 color: backgroundColor,
                                               ),
                                               const SizedBox(width: 5.0),
-                                              Text(review.movieTitle,
+                                              Text(review.movieData.title,
                                                   style: titleBlackTextStyle),
                                             ],
                                           ),

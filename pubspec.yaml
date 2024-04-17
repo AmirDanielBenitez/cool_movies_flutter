@@ -32,6 +32,10 @@ dependencies:
   circular_bottom_navigation: ^2.4.0
   # Login
   flutter_login: ^4.2.1
+  # Offline DB
+  sqflite: ^2.3.2
+  # Check internet
+  connectivity_plus: ^5.0.2
 
 dev_dependencies:
   flutter_test:

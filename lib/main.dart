@@ -1,4 +1,5 @@
 import 'package:coolmovies/config/routes/routes.dart';
+import 'package:coolmovies/features/coolmovies/data/data_sources/local/coolmovies_database.dart';
 import 'package:coolmovies/features/coolmovies/presentation/bloc/movies_bloc/movies_bloc.dart';
 import 'package:coolmovies/features/coolmovies/presentation/bloc/reviews_bloc/reviews_bloc.dart';
 import 'package:coolmovies/features/coolmovies/presentation/bloc/user_bloc/user_bloc.dart';
@@ -11,6 +12,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDependencies();
+  await sl<CoolMoviesDatabase>().open();
 
   runApp(GraphQLProvider(
     client: sl(),
@@ -30,7 +32,8 @@ class MyApp extends StatelessWidget {
           create: (context) => MoviesBloc()..add(LoadMoviesEvent()),
         ),
         BlocProvider(
-          create: (context) => ReviewsBloc(),
+          lazy: false,
+          create: (context) => ReviewsBloc()..add(CheckOfflineReviewsEvent()),
         ),
         BlocProvider(
           lazy: false,

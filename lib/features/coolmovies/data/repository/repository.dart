@@ -19,8 +19,8 @@ class Repository {
       reviewsApiProvider.fetchAllMovieReviewsByMovie(movieId);
   Future<List<Review>> fetchAllReviewsByUser({userId}) =>
       reviewsApiProvider.fetchAllReviewsByUser(userId);
-  Future<void> sendMovieReview({review, movieId, userId}) =>
-      reviewsApiProvider.sendMovieReview(review, movieId, userId);
+  Future<void> sendMovieReview({review}) =>
+      reviewsApiProvider.sendMovieReview(review);
   // Users
   Future<User> fetchCurrentUser() => userApiProvider.fetchCurrentUser();
   Future<User> signUpUser({signupData}) =>
