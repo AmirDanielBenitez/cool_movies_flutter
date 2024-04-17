@@ -46,13 +46,6 @@ class CoolMoviesDatabase {
           rating INTEGER
         )
       ''');
-
-      await db.execute('''
-        CREATE TABLE user_data(
-          id TEXT PRIMARY KEY,
-          name TEXT
-        )
-      ''');
     });
   }
 

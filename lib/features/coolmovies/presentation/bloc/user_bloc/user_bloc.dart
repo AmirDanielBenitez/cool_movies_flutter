@@ -1,5 +1,7 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:coolmovies/features/coolmovies/data/data_sources/local/coolmovies_database.dart';
 import 'package:coolmovies/features/coolmovies/data/models/user/user_model.dart';
 import 'package:coolmovies/features/coolmovies/data/repository/repository.dart';
 import 'package:coolmovies/injection_container.dart';
@@ -50,8 +52,15 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   Future<FutureOr<void>> _onLogInCurrentUserEvent(
       LogInCurrentUserEvent event, Emitter<UserState> emit) async {
     try {
-      final User user = await sl<Repository>().fetchCurrentUser();
-      emit(UserAuthenticated(user: user));
+      ConnectivityResult result = await sl<Connectivity>().checkConnectivity();
+      if (result == ConnectivityResult.none) {
+        User lastUser = const User(id: '0', name: 'Offline user');
+
+        emit(UserAuthenticated(user: lastUser));
+      } else {
+        final User user = await sl<Repository>().fetchCurrentUser();
+        emit(UserAuthenticated(user: user));
+      }
     } catch (e) {
       emit(UserNotAuthenticated(error: e.toString()));
     }
