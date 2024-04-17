@@ -130,7 +130,7 @@ class CoolMoviesDatabase {
   }
 
   Future<void> deleteReviewUser(String id) async {
-    List<Map<String, dynamic>> maps = await _database.query('user_reviews');
+    await _database.query('user_reviews');
     await _database.delete(
       'user_reviews',
       where: 'review_id = ?',

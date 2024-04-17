@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:coolmovies/features/coolmovies/data/data_sources/local/coolmovies_database.dart';
 import 'package:coolmovies/features/coolmovies/data/models/user/user_model.dart';
 import 'package:coolmovies/features/coolmovies/data/repository/repository.dart';
 import 'package:coolmovies/injection_container.dart';
