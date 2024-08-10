@@ -323,7 +323,7 @@ class MovieDetail extends StatelessWidget {
                             rating: rating.toInt(),
                             body: body,
                             movieData: MovieDataReview(movie.id, movie.title),
-                            user: (userState as UserAuthenticated).user.name),
+                            user: (userState as UserAuthenticated).user.id),
                       ));
                       Navigator.of(context).pop();
                     } else {

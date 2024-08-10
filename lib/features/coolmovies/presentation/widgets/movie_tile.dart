@@ -40,19 +40,36 @@ class MovieTile extends StatelessWidget {
                       child: Hero(
                         tag: 'hero-image:${movie.id}',
                         child: ClipRRect(
-                            borderRadius: BorderRadius.circular(8.0),
-                            child: Image.network(
-                              movie.imgUrl,
-                              fit: BoxFit.cover,
-                              loadingBuilder:
-                                  ((context, child, loadingProgress) {
-                                if (loadingProgress == null) return child;
-                                return const ShimmerBox(
-                                  width: 150.0,
-                                  height: 232.0,
-                                );
-                              }),
-                            )),
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: Image.network(
+                            movie.imgUrl,
+                            fit: BoxFit.cover,
+                            loadingBuilder: (context, child, loadingProgress) {
+                              if (loadingProgress == null) return child;
+                              return const ShimmerBox(
+                                width: 150.0,
+                                height: 232.0,
+                              );
+                            },
+                            errorBuilder: (context, error, stackTrace) {
+                              return Container(
+                                width: 150.0,
+                                height: 232.0,
+                                color: Colors.grey[300], // Fondo gris
+                                child: const Center(
+                                  child: Text(
+                                    'Offline',
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ),
                       ),
                     ),
                     const SizedBox(width: 10.0),

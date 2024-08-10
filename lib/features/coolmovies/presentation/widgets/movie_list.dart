@@ -63,6 +63,7 @@ class MovieList extends StatelessWidget {
                                 .toList();
                           },
                           defaultSuffixIconColor: Colors.red,
+                          style: titleTextStyle,
                           displayClearIcon: true,
                           inputDecoration: InputDecoration(
                             labelText: "Search Movie",
